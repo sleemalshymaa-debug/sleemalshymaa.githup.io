@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>بطل الحاسب الآلي 🏆</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --y:#FFE600; --o:#FF7A00; --p:#FF3CAC; --g:#00C853;
+  --sky:#00BFFF; --pur:#BF5AF2; --red:#FF3B30;
+  --mint:#00E5CC; --lime:#AEEA00; --coral:#FF6B6B;
+  --wh:#FFFFFF; --dk:#1A1A2E;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Tajawal',sans-serif;overflow-x:hidden;min-height:100vh;}
+.screen{display:none;min-height:100vh;width:100%;position:relative;overflow:hidden;}
+.screen.active{display:flex;flex-direction:column;align-items:center;}
+
+/* ======= ANIMATED SCENE LAYER ======= */
+.scene{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.scene-item{position:absolute;font-size:1.8rem;animation:flyAcross linear infinite;}
+@keyframes flyAcross{from{transform:translateX(110vw)}to{transform:translateX(-20vw)}}
+@keyframes flyAcrossRev{from{transform:translateX(-20vw)}to{transform:translateX(110vw)}}
+@keyframes floatUp{0%{bottom:-60px;opacity:1}100%{bottom:110vh;opacity:0}}
+@keyframes sway{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes wiggle{0%,100%{transform:rotate(-5deg) scale(1)}50%{transform:rotate(5deg) scale(1.1)}}
+
+/* Birds row */
+.bird{animation:flyAcross linear infinite;}
+/* Cars row */
+.car{animation:flyAcrossRev linear infinite;}
+/* Plane */
+.plane{animation:flyAcross linear infinite;}
+/* Butterfly */
+.butterfly{animation:floatUp linear infinite;}
+
+/* ======= CONTENT WRAPPER ======= */
+.content{position:relative;z-index:2;width:100%;max-width:420px;padding:15px;display:flex;flex-direction:column;align-items:center;}
+
+/* ======= WELCOME ======= */
+#welcome{background:linear-gradient(180deg,#87CEEB 0%,#B0E0FF 40%,#C8F5A0 70%,#90EE90 100%);}
+.cloud{position:absolute;font-size:3rem;animation:flyAcross 18s linear infinite;opacity:0.8;}
+.welcome-card{background:rgba(255,255,255,0.92);border-radius:35px;padding:30px 20px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,0.15);border:4px solid var(--y);margin-top:20px;width:100%;}
+.robot-big{font-size:5rem;display:block;animation:bounce 2s ease-in-out infinite;}
+.w-title{font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--o),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin:10px 0 5px;}
+.w-sub{font-size:1rem;color:#555;margin-bottom:20px;}
+.name-input{width:100%;border:3px solid var(--p);border-radius:18px;padding:14px 18px;font-size:1.2rem;font-family:'Tajawal',sans-serif;text-align:center;color:var(--dk);outline:none;background:#FFF9FF;margin-bottom:15px;}
+.name-input::placeholder{color:#ccc;}
+.btn-go{width:100%;background:linear-gradient(135deg,#FF7A00,#FF3CAC);color:white;font-size:1.3rem;font-weight:900;border:none;border-radius:50px;padding:18px;cursor:pointer;font-family:'Tajawal',sans-serif;box-shadow:0 8px 25px rgba(255,60,172,0.4);transition:transform .2s;}
+.btn-go:active{transform:scale(0.95);}
+
+/* ======= MAP ======= */
+#map{background:linear-gradient(180deg,#AEEEFF 0%,#D4F5A0 60%,#B8F5C8 100%);}
+.map-top{width:100%;text-align:center;padding:15px 0 5px;}
+.map-top h1{font-size:1.6rem;font-weight:900;color:#1A1A2E;text-shadow:2px 2px 0 rgba(255,255,255,0.8);}
+.player-bar{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.9);border-radius:20px;padding:10px 18px;margin-bottom:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1);width:100%;}
+.pname{font-weight:900;font-size:1rem;color:#1A1A2E;flex:1;}
+.pts-badge{background:linear-gradient(135deg,var(--y),var(--o));border-radius:15px;padding:5px 14px;font-weight:900;font-size:1.1rem;color:#1A1A2E;}
+.prog-wrap{width:100%;background:rgba(255,255,255,0.6);border-radius:12px;height:10px;margin-bottom:15px;overflow:hidden;}
+.prog-bar{height:10px;border-radius:12px;background:linear-gradient(90deg,#00C853,#AEEA00);transition:width .6s;}
+.lessons-list{display:flex;flex-direction:column;gap:14px;width:100%;padding-bottom:30px;}
+.lcard{background:white;border-radius:25px;padding:18px;display:flex;align-items:center;gap:14px;box-shadow:0 6px 20px rgba(0,0,0,0.1);cursor:pointer;transition:transform .2s;border:3px solid transparent;position:relative;overflow:hidden;}
+.lcard:active{transform:scale(0.97);}
+.lcard .corner{position:absolute;top:0;right:0;width:70px;height:70px;border-radius:0 25px 0 70px;opacity:0.2;}
+.lcard.c1 .corner{background:#FF7A00;} .lcard.c1{border-color:#FF7A00;}
+.lcard.c2 .corner{background:#BF5AF2;} .lcard.c2{border-color:#BF5AF2;}
+.lcard.c3 .corner{background:#FF3CAC;} .lcard.c3{border-color:#FF3CAC;}
+.lcard.c4 .corner{background:#FF3B30;} .lcard.c4{border-color:#FF3B30;}
+.lcard.c5 .corner{background:#00C853;} .lcard.c5{border-color:#00C853;}
+.lcard.c6 .corner{background:#FFE600;} .lcard.c6{border-color:#FFE600;}
+.lcard.done{background:linear-gradient(135deg,#F0FFF4,#E8FFE8);}
+.lcard.locked{opacity:0.55;cursor:default;}
+.lic{font-size:2.5rem;min-width:55px;text-align:center;}
+.linfo h3{font-size:0.95rem;font-weight:900;color:#1A1A2E;}
+.linfo p{font-size:0.78rem;color:#666;margin-top:2px;}
+.lstat{margin-right:auto;font-size:1.4rem;}
+
+/* ======= LESSON ======= */
+#lesson{background:linear-gradient(180deg,#FFF9E6 0%,#FFF0F5 50%,#F0FFFF 100%);}
+.lesson-hdr{display:flex;align-items:center;gap:10px;width:100%;padding:15px 0 10px;}
+.back-btn{background:linear-gradient(135deg,#667eea,#764ba2);border:none;border-radius:15px;padding:10px 16px;color:white;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;box-shadow:0 4px 12px rgba(102,126,234,0.4);}
+.lesson-ttl{flex:1;text-align:center;font-size:1.1rem;font-weight:900;color:#1A1A2E;}
+.lesson-body{background:white;border-radius:28px;padding:22px;width:100%;box-shadow:0 8px 30px rgba(0,0,0,0.08);margin-bottom:18px;border:3px solid #FFE600;}
+.lesson-body .lh{font-size:1.2rem;font-weight:900;margin-bottom:15px;display:flex;align-items:center;gap:8px;}
+.iitem{display:flex;align-items:flex-start;gap:12px;background:linear-gradient(135deg,#FFF9E6,#FFF5FF);border-radius:18px;padding:14px;margin-bottom:10px;border:2px solid #FFE0B2;}
+.iitem .ii{font-size:1.8rem;min-width:45px;text-align:center;animation:wiggle 3s ease-in-out infinite;}
+.iitem .it{font-size:0.9rem;color:#333;line-height:1.6;}
+.iitem .it strong{color:#FF7A00;font-weight:900;}
+.play-btn{width:100%;background:linear-gradient(135deg,#FF7A00,#FF3CAC);color:white;font-size:1.3rem;font-weight:900;border:none;border-radius:50px;padding:18px;cursor:pointer;font-family:'Tajawal',sans-serif;box-shadow:0 8px 25px rgba(255,60,172,0.4);transition:transform .2s;margin-bottom:10px;}
+.play-btn:active{transform:scale(0.97);}
+
+/* ======= GAME ======= */
+#game{background:linear-gradient(180deg,#E8F5FF 0%,#FFF0FF 50%,#F0FFE8 100%);}
+.game-hdr{display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 0 8px;}
+.game-ttl{font-size:1.1rem;font-weight:900;color:#1A1A2E;}
+.gscore{background:linear-gradient(135deg,#FFE600,#FF7A00);border-radius:15px;padding:6px 15px;font-weight:900;font-size:1rem;color:#1A1A2E;box-shadow:0 3px 10px rgba(255,122,0,0.3);}
+.timer-wrap{width:100%;background:rgba(0,0,0,0.08);border-radius:12px;height:14px;margin-bottom:14px;overflow:hidden;}
+.timer-fill{height:14px;border-radius:12px;background:linear-gradient(90deg,#00C853,#FFE600,#FF3B30);transition:width .1s linear;}
+.garea{width:100%;}
+
+/* ======= SHARED GAME COMPONENTS ======= */
+.qcount{text-align:center;font-size:0.9rem;font-weight:700;color:#888;margin-bottom:12px;}
+
+/* Game cards - bright white */
+.gcard{background:white;border-radius:24px;padding:20px;margin-bottom:14px;box-shadow:0 6px 20px rgba(0,0,0,0.08);text-align:center;border:3px solid #FFE600;}
+.gcard .big-q{font-size:2.5rem;display:block;margin-bottom:10px;}
+.gcard .qtxt{font-size:1rem;font-weight:700;color:#1A1A2E;line-height:1.6;}
+.gcard .qhint{font-size:0.82rem;color:#888;margin-top:6px;}
+
+/* Choice buttons - colorful */
+.choices{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;}
+.chbtn{display:flex;align-items:center;gap:12px;background:white;border:3px solid #E0E0E0;border-radius:18px;padding:16px;cursor:pointer;font-family:'Tajawal',sans-serif;font-weight:700;font-size:0.95rem;color:#1A1A2E;transition:all .2s;box-shadow:0 3px 10px rgba(0,0,0,0.06);}
+.chbtn:active{transform:scale(0.97);}
+.chbtn .ci{font-size:1.8rem;min-width:42px;text-align:center;}
+.chbtn.correct{border-color:#00C853;background:linear-gradient(135deg,#F0FFF4,#E0FFE8);box-shadow:0 4px 15px rgba(0,200,83,0.3);}
+.chbtn.wrong{border-color:#FF3B30;background:linear-gradient(135deg,#FFF5F5,#FFE8E8);}
+
+/* 2-col grid choices */
+.choices2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.chbtn2{display:flex;flex-direction:column;align-items:center;gap:6px;background:white;border:3px solid #E0E0E0;border-radius:18px;padding:18px 10px;cursor:pointer;font-family:'Tajawal',sans-serif;font-weight:700;font-size:0.9rem;color:#1A1A2E;transition:all .2s;box-shadow:0 3px 10px rgba(0,0,0,0.06);}
+.chbtn2 .ci2{font-size:2.2rem;}
+.chbtn2:active{transform:scale(0.95);}
+.chbtn2.correct{border-color:#00C853;background:linear-gradient(135deg,#F0FFF4,#E0FFE8);}
+.chbtn2.wrong{border-color:#FF3B30;background:linear-gradient(135deg,#FFF5F5,#FFE8E8);}
+
+/* Drag items */
+.drag-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:12px;}
+.ditem{display:flex;flex-direction:column;align-items:center;gap:6px;background:white;border:3px solid #BF5AF2;border-radius:18px;padding:16px 12px;cursor:pointer;font-family:'Tajawal',sans-serif;font-weight:700;font-size:0.85rem;color:#1A1A2E;min-width:88px;transition:all .2s;box-shadow:0 4px 12px rgba(191,90,242,0.2);}
+.ditem .di{font-size:2rem;}
+.ditem:active{transform:scale(0.95);}
+.ditem.sel{border-color:#FF7A00;background:linear-gradient(135deg,#FFF9E6,#FFE8CC);box-shadow:0 4px 15px rgba(255,122,0,0.3);}
+.ditem.used{opacity:0.3;pointer-events:none;}
+
+/* Feedback */
+.fb{text-align:center;font-size:1rem;font-weight:800;padding:12px 16px;border-radius:15px;margin-top:8px;}
+.fb.ok{background:linear-gradient(135deg,#E8FFF0,#D0FFE0);color:#00A040;border:2px solid #00C853;}
+.fb.no{background:linear-gradient(135deg,#FFF0F0,#FFE0E0);color:#CC0000;border:2px solid #FF3B30;}
+.fb.hidden{display:none;}
+
+/* Catcher game */
+.catch-sky{position:relative;height:260px;background:linear-gradient(180deg,#E0F7FF,#C8EFFF);border-radius:24px;overflow:hidden;margin-bottom:12px;border:3px solid #00BFFF;}
+.catch-grass{position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(180deg,#7DC959,#5A9E38);border-radius:0 0 20px 20px;}
+.ffile{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer;animation:fallDown linear forwards;}
+.ffile .ficon{font-size:2.2rem;}
+.ffile .flabel{font-size:0.65rem;font-weight:700;background:rgba(255,255,255,0.9);border-radius:8px;padding:2px 6px;color:#333;margin-top:2px;}
+@keyframes fallDown{from{top:-70px}to{top:280px}}
+.baskets{display:flex;gap:8px;justify-content:center;}
+.bsk{flex:1;max-width:95px;background:white;border:3px solid #00C853;border-radius:18px;padding:12px 6px;text-align:center;cursor:pointer;font-family:'Tajawal',sans-serif;font-weight:700;font-size:0.8rem;color:#1A1A2E;transition:all .2s;box-shadow:0 3px 10px rgba(0,200,83,0.2);}
+.bsk .bi{font-size:1.6rem;display:block;margin-bottom:4px;}
+.bsk:active{transform:scale(0.95);background:linear-gradient(135deg,#E8FFF0,#D0FFE0);}
+.catch-stats{text-align:center;font-size:1rem;font-weight:900;color:#1A1A2E;margin-bottom:10px;background:white;border-radius:14px;padding:8px;box-shadow:0 3px 10px rgba(0,0,0,0.07);}
+
+/* ======= RESULT POPUP ======= */
+.popup-bg{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:999;padding:20px;}
+.popup-box{background:white;border-radius:35px;padding:35px 25px;text-align:center;max-width:360px;width:100%;animation:popIn .4s cubic-bezier(.34,1.56,.64,1);border:4px solid var(--y);}
+@keyframes popIn{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.pop-stars{font-size:2.8rem;margin-bottom:8px;}
+.pop-title{font-size:1.9rem;font-weight:900;color:#1A1A2E;margin-bottom:6px;}
+.pop-msg{font-size:1rem;color:#555;margin-bottom:20px;}
+.pop-btn{width:100%;background:linear-gradient(135deg,#00BFFF,#BF5AF2);color:white;font-size:1.1rem;font-weight:900;border:none;border-radius:50px;padding:16px;cursor:pointer;font-family:'Tajawal',sans-serif;box-shadow:0 6px 20px rgba(191,90,242,0.35);}
+.popup-bg.hidden{display:none;}
+
+/* ======= CERTIFICATE ======= */
+#certificate{background:linear-gradient(135deg,#AEEEFF,#FFC3E8,#FFE88A);}
+.cert-card{background:white;border-radius:30px;padding:30px 22px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.2);border:5px solid #FFE600;text-align:center;position:relative;overflow:hidden;}
+.cert-card::before{content:'🌟';position:absolute;font-size:8rem;opacity:0.05;top:50%;left:50%;transform:translate(-50%,-50%);}
+.cert-logo{font-size:4rem;margin-bottom:8px;}
+.cert-title{font-size:1.5rem;font-weight:900;color:#1A1A2E;margin-bottom:4px;}
+.cert-sub{font-size:0.85rem;color:#888;margin-bottom:16px;}
+.cert-name{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#FF7A00,#FF3CAC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;text-decoration:underline;text-decoration-color:#FFE600;}
+.cert-badge{display:inline-block;background:linear-gradient(135deg,#FFE600,#FF7A00);border-radius:20px;padding:10px 20px;font-size:1rem;font-weight:900;color:#1A1A2E;margin-bottom:14px;}
+.cert-score{font-size:0.95rem;color:#555;margin-bottom:12px;}
+.cert-stars{font-size:2rem;margin-bottom:14px;}
+.cert-footer{font-size:0.8rem;color:#aaa;border-top:2px dashed #eee;padding-top:12px;}
+.print-btn{width:100%;max-width:400px;background:linear-gradient(135deg,#00C853,#00BFFF);color:white;font-size:1.1rem;font-weight:900;border:none;border-radius:50px;padding:16px;cursor:pointer;font-family:'Tajawal',sans-serif;margin-top:16px;box-shadow:0 6px 20px rgba(0,200,83,0.35);}
+.replay-btn{width:100%;max-width:400px;background:white;color:#BF5AF2;font-size:1rem;font-weight:700;border:3px solid #BF5AF2;border-radius:50px;padding:14px;cursor:pointer;font-family:'Tajawal',sans-serif;margin-top:10px;}
+
+/* ======= ANIMATED DECORATIONS ======= */
+.deco{position:absolute;pointer-events:none;z-index:1;}
+
+/* Confetti */
+.cpiece{position:fixed;width:10px;height:10px;border-radius:3px;animation:cfall linear forwards;pointer-events:none;z-index:9999;}
+@keyframes cfall{from{transform:translateY(-20px) rotate(0deg);opacity:1}to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* ======= ANIMATED SCENE ELEMENTS ======= */
+/* Birds fly from right to left on top strip */
+.anim-bird{position:fixed;pointer-events:none;z-index:1;font-size:1.6rem;top:var(--top);animation:flyBird var(--dur) linear infinite;animation-delay:var(--del);}
+@keyframes flyBird{from{right:-60px;transform:scaleX(1)}to{right:110vw;transform:scaleX(1)}}
+
+/* Cars drive from left to right at bottom */
+.anim-car{position:fixed;pointer-events:none;z-index:1;font-size:1.8rem;bottom:var(--bot);animation:driveCar var(--dur) linear infinite;animation-delay:var(--del);}
+@keyframes driveCar{from{left:-80px}to{left:110vw}}
+
+/* Plane goes across sky */
+.anim-plane{position:fixed;pointer-events:none;z-index:1;font-size:2.2rem;top:var(--top);animation:flyPlane var(--dur) linear infinite;animation-delay:var(--del);}
+@keyframes flyPlane{from{left:-80px}to{left:110vw}}
+
+/* Butterfly floats up */
+.anim-butterfly{position:fixed;pointer-events:none;z-index:1;font-size:1.5rem;left:var(--lft);animation:flutterUp var(--dur) ease-in-out infinite;animation-delay:var(--del);}
+@keyframes flutterUp{0%{bottom:-40px;opacity:0;transform:rotate(-10deg)}20%{opacity:1}80%{opacity:1}100%{bottom:110vh;opacity:0;transform:rotate(10deg)}}
+
+/* Celebration burst (tank shoots) */
+.boom{position:fixed;font-size:2.5rem;pointer-events:none;z-index:9998;animation:boomFly .8s ease-out forwards;}
+@keyframes boomFly{from{transform:scale(0) rotate(0deg);opacity:1}to{transform:scale(2) rotate(360deg) translateY(-80px);opacity:0}}
+
+/* Correct answer celebration items */
+.celeb-item{position:fixed;pointer-events:none;z-index:9997;font-size:2rem;animation:celebFly 1.2s ease-out forwards;}
+@keyframes celebFly{from{transform:scale(0);opacity:1}to{transform:translateY(-150px) scale(1.5);opacity:0}}
+</style>
+</head>
+<body>
+
+<!-- ======= ANIMATED BACKGROUND SCENE ======= -->
+<div id="animScene"></div>
+
+<!-- ======= WELCOME ======= -->
+<div id="welcome" class="screen active">
+  <div class="content" style="justify-content:center;min-height:100vh;">
+    <div class="welcome-card">
+      <span class="robot-big">🤖</span>
+      <div class="w-title">بطل الحاسب الآلي!</div>
+      <div class="w-sub">🎓 الصف الخامس • المحور الأول</div>
+      <div style="font-size:1.4rem;margin-bottom:18px;">⭐🎮🏆🎉🌟</div>
+      <input type="text" class="name-input" id="pname" placeholder="✏️ اكتب اسمك هنا يا بطل...">
+      <button class="btn-go" onclick="startApp()">🚀 ابدأ المغامرة!</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======= MAP ======= -->
+<div id="map" class="screen">
+  <div class="content">
+    <div class="map-top"><h1>🗺️ خريطة الرحلة التعليمية</h1></div>
+    <div class="player-bar">
+      <span>👤</span>
+      <span class="pname" id="mapName">اللاعب</span>
+      <span style="font-weight:700;color:#555;">النقاط:</span>
+      <span class="pts-badge" id="mapPts">0</span>
+    </div>
+    <div class="prog-wrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+    <div class="lessons-list" id="lessonsList"></div>
+  </div>
+</div>
+
+<!-- ======= LESSON ======= -->
+<div id="lesson" class="screen">
+  <div class="content">
+    <div class="lesson-hdr">
+      <button class="back-btn" onclick="goMap()">⬅️ رجوع</button>
+      <div class="lesson-ttl" id="lessonTtl">عنوان الدرس</div>
+    </div>
+    <div class="lesson-body" id="lessonBody"></div>
+    <button class="play-btn" onclick="launchGame()">🎮 العب الآن وكسب نقاط! 🏆</button>
+  </div>
+</div>
+
+<!-- ======= GAME ======= -->
+<div id="game" class="screen">
+  <div class="content">
+    <div class="game-hdr">
+      <button class="back-btn" onclick="goLesson()">⬅️</button>
+      <div class="game-ttl" id="gameTtl">🎮 اللعبة</div>
+      <div class="gscore">⭐ <span id="gpts">0</span></div>
+    </div>
+    <div class="timer-wrap"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+    <div class="garea" id="garea"></div>
+  </div>
+</div>
+
+<!-- ======= CERTIFICATE ======= -->
+<div id="certificate" class="screen">
+  <div class="content" style="padding-bottom:30px;">
+    <div class="cert-card" id="certCard">
+      <div class="cert-logo">🏆</div>
+      <div style="font-size:0.9rem;color:#BF5AF2;font-weight:700;">وزارة التربية والتعليم</div>
+      <div class="cert-title">شهادة تقدير 🌟</div>
+      <div class="cert-sub">يُشهد بأن الطالب/ة المتميز/ة</div>
+      <div class="cert-name" id="certName">اسم البطل</div>
+      <div class="cert-badge">🦸 بطل الحاسب الآلي المتميز 🦸</div>
+      <div class="cert-score" id="certScore">حصل على درجة ممتازة</div>
+      <div class="cert-stars" id="certStars">⭐⭐⭐⭐⭐</div>
+      <div style="font-size:0.9rem;color:#666;margin-bottom:12px;">في اختبار مادة الحاسب الآلي<br>الصف الخامس الابتدائي – المحور الأول</div>
+      <div class="cert-footer">🎓 استمر في التفوق يا بطل! 🚀🌟</div>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ اطبع الشهادة</button>
+    <button class="replay-btn" onclick="replayAll()">🔄 العب مجدداً</button>
+  </div>
+</div>
+
+<!-- ======= RESULT POPUP ======= -->
+<div class="popup-bg hidden" id="popup">
+  <div class="popup-box">
+    <div class="pop-stars" id="popStars">⭐⭐⭐</div>
+    <div class="pop-title" id="popTitle">رائع!</div>
+    <div class="pop-msg" id="popMsg">أحسنت يا بطل!</div>
+    <button class="pop-btn" onclick="afterGame()">التالي ▶️</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  STATE
+// ============================================================
+let pname='', totalPts=0, done=[], curLesson=0, gScore=0;
+let timerInt=null, timeLeft=30;
+
+// ============================================================
+//  LESSONS
+// ============================================================
+const LESSONS=[
+  {id:1,em:'💾',title:'الأدوات الملحقة',game:'المخزن الذكي',cls:'c1',
+   info:[
+    {i:'💾',t:'القرص الصلب الخارجي',d:'يخزّن الملفات ويكون أسرع من القرص التقليدي HDD'},
+    {i:'🔌',t:'كابل ومنفذ الإيثرنت',d:'يربط الحاسب الآلي بالموجّه Router للإنترنت السلكي'},
+    {i:'📡',t:'الموجّه (Router)',d:'يوزّع الإنترنت على عدة أجهزة عبر الواي فاي أو الإيثرنت'},
+    {i:'📺',t:'كابل HDMI',d:'ينقل الصوت والفيديو بجودة عالية بين الأجهزة'},
+   ]},
+  {id:2,em:'🌐',title:'الشبكات وأنواعها',game:'ساعي البريد الرقمي',cls:'c2',
+   info:[
+    {i:'🏠',t:'الشبكة المحلية LAN',d:'تربط أجهزة داخل منزل أو مكتب صغير'},
+    {i:'🌍',t:'الإنترنت WAN',d:'شبكة عالمية تربط أجهزة في كل أنحاء العالم'},
+    {i:'🔒',t:'الإنترانت Intranet',d:'شبكة مغلقة خاصة مثل شبكة المدرسة'},
+    {i:'🌐',t:'الشبكة العالمية WWW',d:'شبكة مفتوحة تحتوي مليارات الصفحات والمعلومات'},
+   ]},
+  {id:3,em:'📱',title:'أنظمة التواصل الذكية',game:'المكالمة الناجحة',cls:'c3',
+   info:[
+    {i:'📧',t:'البريد الإلكتروني',d:'للرسائل والوثائق الرسمية في أي وقت'},
+    {i:'📹',t:'مؤتمرات الفيديو',d:'للاجتماعات والدروس عن بُعد مع رؤية الجميع'},
+    {i:'💬',t:'تطبيقات المحادثة',d:'للدردشة السريعة مع الأصدقاء والعائلة'},
+    {i:'🦷',t:'البلوتوث',d:'نقل بيانات لاسلكي على مسافات قصيرة جداً'},
+   ]},
+  {id:4,em:'🔧',title:'مشكلات الإنترنت وحلولها',game:'المحقق التقني',cls:'c4',
+   info:[
+    {i:'🐌',t:'بطء التصفح',d:'السبب: كثرة التطبيقات أو ضعف الإشارة | الحل: أغلق التطبيقات'},
+    {i:'❌',t:'انقطاع الإنترنت',d:'السبب: مشكلة في السلك | الحل: تحقق من الاتصال وأعد التشغيل'},
+    {i:'📵',t:'لا يعمل الإنترنت',d:'السبب: إعدادات خاطئة | الحل: اتصل بمزود الخدمة ISP'},
+    {i:'🔋',t:'الكمبيوتر يتوقف',d:'السبب: مشكلة برنامج | الحل: أعد التشغيل وحذّث البرامج'},
+   ]},
+  {id:5,em:'📁',title:'إدارة الملفات الرقمية',game:'ترتيب الفوضى',cls:'c5',
+   info:[
+    {i:'💿',t:'القرص الصلب HDD',d:'المكان الرئيسي لحفظ الملفات داخل الحاسب بمساحة كبيرة'},
+    {i:'🔑',t:'وحدة تخزين الفلاش',d:'جهاز صغير متنقل لنقل الملفات بين الأجهزة'},
+    {i:'📂',t:'إنشاء المجلدات',d:'نظّم ملفاتك في مجلدات بأسماء واضحة للعثور عليها بسرعة'},
+    {i:'✏️',t:'تسمية الملفات',d:'اختر اسماً واضحاً يدل على المحتوى مثل: صور العائلة 2025'},
+   ]},
+  {id:6,em:'🔐',title:'مشاركة المعلومات',game:'خزنة الأسرار',cls:'c6',
+   info:[
+    {i:'🌍',t:'المعلومات العامة',d:'المعلومات العلمية والأخبار يمكن مشاركتها للجميع'},
+    {i:'🏫',t:'الشبكة الداخلية',d:'واجبات المدرسة تُشارك داخل المدرسة فقط'},
+    {i:'🔒',t:'الخصوصية الرقمية',d:'لا تشارك اسمك الكامل أو عنوانك على الإنترنت!'},
+    {i:'📊',t:'الجداول الحسابية Excel',d:'برنامج لتنظيم الأرقام وإجراء العمليات الحسابية'},
+   ]},
+];
+
+// ============================================================
+//  GAME DATA
+// ============================================================
+const GD={
+  1:{
+    rounds:[
+      {q:'يخزّن الملفات خارج الحاسب بمساحة كبيرة 💾',ans:'hdd'},
+      {q:'يربط الحاسب بالموجّه عبر سلك 🔌',ans:'eth'},
+      {q:'يوزّع الواي فاي على أجهزة المنزل 📡',ans:'rtr'},
+      {q:'ينقل الصورة والصوت للشاشة بجودة عالية 📺',ans:'hdmi'},
+    ],
+    items:[
+      {id:'hdd',i:'💾',l:'القرص الصلب'},
+      {id:'eth',i:'🔌',l:'كابل الإيثرنت'},
+      {id:'rtr',i:'📡',l:'الراوتر'},
+      {id:'hdmi',i:'📺',l:'كابل HDMI'},
+    ]
+  },
+  2:{
+    rounds:[
+      {sc:'📚 تريد إرسال واجبك لأستاذك في نفس المدرسة',em:'🏫',ans:'lan'},
+      {sc:'✈️ تريد التحدث مع صديق في دولة أخرى',em:'🌍',ans:'wan'},
+      {sc:'🖥️ تشارك ملفاً مع زميلك في مختبر الكمبيوتر',em:'📁',ans:'lan'},
+      {sc:'🌐 تنشر مقالاً علمياً للعالم كله على الإنترنت',em:'📰',ans:'wan'},
+    ]
+  },
+  3:{
+    rounds:[
+      {sc:'مقابلة رسمية مع مدير الشركة عن بُعد',em:'👔',ans:'video',hint:'تحتاج رؤية الشخص'},
+      {sc:'إرسال تقرير بحثي رسمي لمعلمك',em:'📄',ans:'email',hint:'وثيقة رسمية'},
+      {sc:'دردشة سريعة مع أخيك عن موعد الغداء',em:'🍽️',ans:'chat',hint:'رسالة غير رسمية'},
+      {sc:'مشاركة ملف موسيقي مع هاتف صديقك القريب',em:'🎵',ans:'bt',hint:'الجهازان قريبان جداً'},
+    ]
+  },
+  4:{
+    rounds:[
+      {sit:'الكمبيوتر لا يتصل بالإنترنت 🖥️❌',em:'😤',
+       opts:[{i:'🔌',l:'السلك مفصول من الراوتر',c:true},{i:'🖥️',l:'الشاشة متسخة',c:false},{i:'⌨️',l:'لوحة المفاتيح قديمة',c:false}]},
+      {sit:'الإنترنت بطيء جداً لا يمكن فتح أي موقع 🐌',em:'😩',
+       opts:[{i:'📱',l:'كثير من التطبيقات مفتوحة',c:true},{i:'🖱️',l:'الماوس لا يعمل',c:false},{i:'🔊',l:'الصوت مرتفع جداً',c:false}]},
+      {sit:'الراوتر لا يعمل والواي فاي مختفي 📡❌',em:'😱',
+       opts:[{i:'🔌',l:'الراوتر غير موصول بالكهرباء',c:true},{i:'🖨️',l:'الطابعة لا تعمل',c:false},{i:'📷',l:'الكاميرا تحتاج بطاريات',c:false}]},
+    ]
+  },
+  5:{
+    files:[
+      {em:'🖼️',n:'صورة.jpg',t:'photos'},
+      {em:'🎬',n:'فيديو.mp4',t:'videos'},
+      {em:'📄',n:'واجب.pdf',t:'docs'},
+      {em:'🎵',n:'أغنية.mp3',t:'music'},
+      {em:'📊',n:'جدول.xlsx',t:'docs'},
+      {em:'🖼️',n:'عائلة.png',t:'photos'},
+      {em:'🎬',n:'فيلم.avi',t:'videos'},
+      {em:'📝',n:'تقرير.doc',t:'docs'},
+    ],
+    baskets:[
+      {id:'photos',i:'🖼️',l:'الصور'},
+      {id:'videos',i:'🎬',l:'الفيديوهات'},
+      {id:'docs',i:'📁',l:'المستندات'},
+      {id:'music',i:'🎵',l:'الموسيقى'},
+    ]
+  },
+  6:{
+    rounds:[
+      {info:'🌍 أخبار علمية عن اكتشاف كوكب جديد في الفضاء',i:'🔭',ans:'pub'},
+      {info:'📸 صورتك الشخصية وعنوان منزلك',i:'🏠',ans:'prv'},
+      {info:'📚 معلومات عن الديناصورات للمشروع المدرسي',i:'🦕',ans:'pub'},
+      {info:'📞 رقم هاتف والدك وكلمة سر حسابك',i:'🔑',ans:'prv'},
+      {info:'🌿 معلومات علمية عن المحافظة على البيئة',i:'🌱',ans:'pub'},
+      {info:'🎓 درجاتك في الاختبارات والتقارير المدرسية',i:'📋',ans:'prv'},
+    ]
+  }
+};
+
+// ============================================================
+//  ANIMATED SCENE
+// ============================================================
+function buildScene(){
+  const sc=document.getElementById('animScene');
+  sc.className='';
+  sc.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;';
+  sc.innerHTML='';
+
+  // Birds (fly right-to-left at top)
+  const birds=['🐦','🦅','🐧','🦜','🐤'];
+  birds.forEach((b,i)=>{
+    const el=document.createElement('div');
+    el.style.cssText=`position:absolute;font-size:1.6rem;top:${8+i*4}%;animation:flyBird ${7+i*3}s linear infinite;animation-delay:${-i*2}s;right:-60px;`;
+    el.innerHTML=b;
+    sc.appendChild(el);
+  });
+
+  // Plane (flies left-to-right higher up)
+  [{em:'✈️',top:5,dur:12},{em:'🚁',top:15,dur:18}].forEach((p,i)=>{
+    const el=document.createElement('div');
+    el.style.cssText=`position:absolute;font-size:2rem;top:${p.top}%;animation:driveCar ${p.dur}s linear infinite;animation-delay:${-i*5}s;left:-80px;`;
+    el.innerHTML=p.em;
+    sc.appendChild(el);
+  });
+
+  // Cars (drive left-to-right at bottom)
+  const cars=['🚗','🚕','🚙','🚌','🏎️'];
+  cars.forEach((c,i)=>{
+    const el=document.createElement('div');
+    el.style.cssText=`position:absolute;font-size:1.7rem;bottom:${2+i*3}%;animation:driveCar ${6+i*2}s linear infinite;animation-delay:${-i*3}s;left:-80px;`;
+    el.innerHTML=c;
+    sc.appendChild(el);
+  });
+
+  // Butterflies (float up on sides)
+  const bflies=['🦋','🌸','🌺','🌻','🌼'];
+  bflies.forEach((b,i)=>{
+    const el=document.createElement('div');
+    el.style.cssText=`position:absolute;font-size:1.4rem;left:${5+i*18}%;animation:flutterUp ${8+i*2}s ease-in-out infinite;animation-delay:${-i*1.5}s;bottom:-40px;`;
+    el.innerHTML=b;
+    sc.appendChild(el);
+  });
+
+  // Stars/clouds at top
+  ['☁️','🌤️','⛅'].forEach((c,i)=>{
+    const el=document.createElement('div');
+    el.style.cssText=`position:absolute;font-size:2rem;top:${3+i*4}%;animation:flyBird ${15+i*5}s linear infinite;animation-delay:${-i*4}s;right:-60px;opacity:0.6;`;
+    el.innerHTML=c;
+    sc.appendChild(el);
+  });
+}
+
+// Inject keyframes
+const styleEl=document.createElement('style');
+styleEl.textContent=`
+@keyframes flyBird{from{right:-60px}to{right:110vw}}
+@keyframes driveCar{from{left:-80px}to{left:110vw}}
+@keyframes flutterUp{0%{bottom:-40px;opacity:0;transform:rotate(-8deg) scale(0.8)}10%{opacity:1}90%{opacity:0.8}100%{bottom:105vh;opacity:0;transform:rotate(8deg) scale(1.1)}}
+`;
+document.head.appendChild(styleEl);
+buildScene();
+
+// ============================================================
+//  NAVIGATION
+// ============================================================
+function showScr(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function startApp(){
+  const n=document.getElementById('pname').value.trim();
+  if(!n){alert('✏️ من فضلك اكتب اسمك أولاً!');return;}
+  pname=n;
+  renderMap();
+  showScr('map');
+}
+function goMap(){if(timerInt){clearInterval(timerInt);timerInt=null;}showScr('map');renderMap();}
+function goLesson(){if(timerInt){clearInterval(timerInt);timerInt=null;}showScr('lesson');}
+
+// ============================================================
+//  MAP
+// ============================================================
+function renderMap(){
+  document.getElementById('mapName').textContent=pname;
+  document.getElementById('mapPts').textContent=totalPts;
+  document.getElementById('progBar').style.width=Math.round((done.length/LESSONS.length)*100)+'%';
+  const ul=document.getElementById('lessonsList');
+  ul.innerHTML='';
+  LESSONS.forEach((l,i)=>{
+    const isDone=done.includes(l.id);
+    const isLocked=i>0&&!done.includes(LESSONS[i-1].id);
+    const d=document.createElement('div');
+    d.className=`lcard ${l.cls}${isDone?' done':''}${isLocked?' locked':''}`;
+    d.innerHTML=`<div class="corner"></div><div class="lic">${l.em}</div>
+      <div class="linfo"><h3>الدرس ${l.id}: ${l.title}</h3><p>🎮 ${l.game}</p></div>
+      <div class="lstat">${isDone?'✅':isLocked?'🔒':'▶️'}</div>`;
+    if(!isLocked) d.onclick=()=>openLesson(l.id);
+    ul.appendChild(d);
+  });
+}
+
+// ============================================================
+//  LESSON
+// ============================================================
+function openLesson(id){
+  curLesson=id;
+  const l=LESSONS.find(x=>x.id===id);
+  document.getElementById('lessonTtl').textContent=`${l.em} ${l.title}`;
+  const b=document.getElementById('lessonBody');
+  b.innerHTML=`<div class="lh"><span>${l.em}</span>${l.title}</div>`+
+    l.info.map(it=>`<div class="iitem">
+      <div class="ii">${it.i}</div>
+      <div class="it"><strong>${it.t}</strong><br>${it.d}</div>
+    </div>`).join('');
+  showScr('lesson');
+}
+
+// ============================================================
+//  GAME LAUNCHER
+// ============================================================
+function launchGame(){
+  const l=LESSONS.find(x=>x.id===curLesson);
+  document.getElementById('gameTtl').textContent=`🎮 ${l.game}`;
+  gScore=0;
+  document.getElementById('gpts').textContent=0;
+  showScr('game');
+  const area=document.getElementById('garea');
+  area.innerHTML='';
+  if(curLesson===1)initG1(area);
+  else if(curLesson===2)initG2(area);
+  else if(curLesson===3)initG3(area);
+  else if(curLesson===4)initG4(area);
+  else if(curLesson===5)initG5(area);
+  else if(curLesson===6)initG6(area);
+}
+
+// ============================================================
+//  TIMER
+// ============================================================
+function startTimer(sec){
+  timeLeft=sec;
+  if(timerInt)clearInterval(timerInt);
+  const bar=document.getElementById('timerFill');
+  bar.style.width='100%';
+  timerInt=setInterval(()=>{
+    timeLeft-=0.1;
+    bar.style.width=Math.max(0,(timeLeft/sec)*100)+'%';
+    if(timeLeft<=0)clearInterval(timerInt);
+  },100);
+}
+function stopTimer(){clearInterval(timerInt);document.getElementById('timerFill').style.width='100%';}
+
+// ============================================================
+//  EFFECTS
+// ============================================================
+function correctFX(){
+  // Colorful burst + celebration emojis
+  const celebs=['🎉','⭐','🌟','💥','✨','🏆','🎊'];
+  for(let i=0;i<8;i++){
+    const el=document.createElement('div');
+    el.className='cpiece';
+    el.style.left=Math.random()*100+'vw';
+    el.style.top=Math.random()*50+'vh';
+    el.style.background=['#FFE600','#FF7A00','#FF3CAC','#00C853','#00BFFF','#BF5AF2','#FF3B30'][Math.floor(Math.random()*7)];
+    el.style.animationDuration=(1.5+Math.random())+'s';
+    el.style.animationDelay=Math.random()*0.3+'s';
+    el.style.borderRadius=Math.random()>0.5?'50%':'3px';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),2500);
+  }
+  // Floating celebs
+  for(let i=0;i<5;i++){
+    const el=document.createElement('div');
+    el.className='celeb-item';
+    el.style.left=(10+Math.random()*80)+'vw';
+    el.style.top=(30+Math.random()*40)+'vh';
+    el.style.animationDelay=Math.random()*0.5+'s';
+    el.textContent=celebs[Math.floor(Math.random()*celebs.length)];
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1500);
+  }
+}
+function wrongFX(){
+  document.body.style.transition='background .05s';
+  const orig=document.body.style.background;
+  document.body.style.background='#FFE8E8';
+  setTimeout(()=>document.body.style.background=orig,250);
+}
+function bigConfetti(){
+  const c=['#FFE600','#FF7A00','#FF3CAC','#00C853','#00BFFF','#BF5AF2','#FF3B30','#AEEA00'];
+  for(let i=0;i<80;i++){
+    const el=document.createElement('div');
+    el.className='cpiece';
+    el.style.left=Math.random()*100+'vw';
+    el.style.top=-20+'px';
+    el.style.background=c[Math.floor(Math.random()*c.length)];
+    el.style.animationDuration=(2+Math.random()*2)+'s';
+    el.style.animationDelay=Math.random()*2+'s';
+    el.style.borderRadius=Math.random()>0.5?'50%':'3px';
+    el.style.width=(8+Math.random()*10)+'px';
+    el.style.height=(8+Math.random()*10)+'px';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),5000);
+  }
+}
+
+// ============================================================
+//  GAME 1 – المخزن الذكي
+// ============================================================
+let g1={r:0};
+function initG1(area){g1={r:0};renderG1(area);}
+function renderG1(area){
+  const data=GD[1];
+  if(g1.r>=data.rounds.length){endGame(gScore,data.rounds.length*20);return;}
+  const round=data.rounds[g1.r];
+  area.innerHTML=`
+    <div class="qcount">السؤال ${g1.r+1} من ${data.rounds.length}</div>
+    <div class="gcard">
+      <span class="big-q">🖥️❓</span>
+      <div class="qtxt">أي جهاز يقوم بهذه المهمة؟<br><span style="color:#FF7A00;font-size:1.1rem;">"${round.q}"</span></div>
+    </div>
+    <div class="drag-grid" id="g1items"></div>
+    <div class="fb hidden" id="g1fb"></div>`;
+  const grid=document.getElementById('g1items');
+  data.items.forEach(item=>{
+    const d=document.createElement('div');
+    d.className='ditem';
+    d.innerHTML=`<div class="di">${item.i}</div>${item.l}`;
+    d.onclick=()=>g1Pick(item.id,round.ans);
+    grid.appendChild(d);
+  });
+  startTimer(30);
+}
+function g1Pick(chosen,ans){
+  stopTimer();
+  document.querySelectorAll('.ditem').forEach(d=>d.style.pointerEvents='none');
+  const fb=document.getElementById('g1fb');
+  fb.classList.remove('hidden');
+  if(chosen===ans){
+    gScore+=20;document.getElementById('gpts').textContent=gScore;
+    fb.className='fb ok';fb.textContent='✅ ممتاز! إجابة صحيحة! 🎉';
+    correctFX();
+  } else {
+    const c=GD[1].items.find(i=>i.id===ans);
+    fb.className='fb no';fb.textContent=`❌ الإجابة الصحيحة: ${c.i} ${c.l}`;
+    wrongFX();
+  }
+  setTimeout(()=>{g1.r++;renderG1(document.getElementById('garea'));},1800);
+}
+
+// ============================================================
+//  GAME 2 – ساعي البريد الرقمي
+// ============================================================
+let g2={r:0};
+function initG2(area){g2={r:0};renderG2(area);}
+function renderG2(area){
+  const data=GD[2];
+  if(g2.r>=data.rounds.length){endGame(gScore,data.rounds.length*20);return;}
+  const round=data.rounds[g2.r];
+  area.innerHTML=`
+    <div class="qcount">المحطة ${g2.r+1} من ${data.rounds.length}</div>
+    <div class="gcard">
+      <span class="big-q">${round.em}</span>
+      <div class="qtxt">${round.sc}</div>
+    </div>
+    <div class="choices">
+      <div class="chbtn" id="btnLan" onclick="g2Pick('lan','${round.ans}','btnLan')">
+        <span class="ci">🏠</span>
+        <div><div style="font-weight:900;">الشبكة المحلية LAN</div><div style="font-size:0.8rem;color:#888;">للأجهزة في نفس المكان</div></div>
+      </div>
+      <div class="chbtn" id="btnWan" onclick="g2Pick('wan','${round.ans}','btnWan')">
+        <span class="ci">🌍</span>
+        <div><div style="font-weight:900;">الإنترنت WAN</div><div style="font-size:0.8rem;color:#888;">للتواصل مع العالم كله</div></div>
+      </div>
+    </div>
+    <div class="fb hidden" id="g2fb"></div>`;
+  startTimer(25);
+}
+function g2Pick(chosen,ans,btnId){
+  stopTimer();
+  document.querySelectorAll('.chbtn').forEach(b=>b.style.pointerEvents='none');
+  const fb=document.getElementById('g2fb');
+  fb.classList.remove('hidden');
+  const el=document.getElementById(btnId);
+  if(chosen===ans){
+    el.classList.add('correct');
+    gScore+=20;document.getElementById('gpts').textContent=gScore;
+    fb.className='fb ok';fb.textContent='✅ أحسنت! اخترت المسار الصحيح! 🚀';
+    correctFX();
+  } else {
+    el.classList.add('wrong');
+    fb.className='fb no';fb.textContent='❌ المسار الخاطئ! حاول في السؤال القادم 💪';
+    wrongFX();
+  }
+  setTimeout(()=>{g2.r++;renderG2(document.getElementById('garea'));},1800);
+}
+
+// ============================================================
+//  GAME 3 – المكالمة الناجحة
+// ============================================================
+let g3={r:0};
+const TOOLS=[{id:'email',i:'📧',l:'بريد إلكتروني'},{id:'video',i:'📹',l:'مكالمة فيديو'},{id:'chat',i:'💬',l:'دردشة'},{id:'bt',i:'🦷',l:'بلوتوث'}];
+function initG3(area){g3={r:0};renderG3(area);}
+function renderG3(area){
+  const data=GD[3];
+  if(g3.r>=data.rounds.length){endGame(gScore,data.rounds.length*20);return;}
+  const round=data.rounds[g3.r];
+  area.innerHTML=`
+    <div class="qcount">سيناريو ${g3.r+1} من ${data.rounds.length}</div>
+    <div class="gcard">
+      <span class="big-q">${round.em}</span>
+      <div class="qtxt">${round.sc}</div>
+      <div class="qhint">💡 تلميح: ${round.hint}</div>
+    </div>
+    <div class="choices2" id="g3tools"></div>
+    <div class="fb hidden" id="g3fb"></div>`;
+  const grid=document.getElementById('g3tools');
+  TOOLS.forEach(t=>{
+    const d=document.createElement('div');
+    d.className='chbtn2';d.id='t_'+t.id;
+    d.innerHTML=`<span class="ci2">${t.i}</span>${t.l}`;
+    d.onclick=()=>g3Pick(t.id,round.ans,'t_'+t.id);
+    grid.appendChild(d);
+  });
+  startTimer(25);
+}
+function g3Pick(chosen,ans,elId){
+  stopTimer();
+  document.querySelectorAll('.chbtn2').forEach(b=>b.style.pointerEvents='none');
+  const fb=document.getElementById('g3fb');
+  fb.classList.remove('hidden');
+  const el=document.getElementById(elId);
+  if(chosen===ans){
+    el.classList.add('correct');
+    gScore+=20;document.getElementById('gpts').textContent=gScore;
+    fb.className='fb ok';fb.textContent='✅ اختيار ذكي! أنت بارع! 🌟';
+    correctFX();
+  } else {
+    el.classList.add('wrong');
+    fb.className='fb no';fb.textContent='❌ ليست الأداة المثالية! 💪';
+    wrongFX();
+  }
+  setTimeout(()=>{g3.r++;renderG3(document.getElementById('garea'));},1800);
+}
+
+// ============================================================
+//  GAME 4 – المحقق التقني
+// ============================================================
+let g4={r:0};
+function initG4(area){g4={r:0};renderG4(area);}
+function renderG4(area){
+  const data=GD[4];
+  if(g4.r>=data.rounds.length){endGame(gScore,data.rounds.length*25);return;}
+  const round=data.rounds[g4.r];
+  area.innerHTML=`
+    <div class="qcount">🔍 تحقيق ${g4.r+1} من ${data.rounds.length}</div>
+    <div class="gcard">
+      <span class="big-q">🕵️</span>
+      <div class="qtxt" style="color:#FF3B30;">${round.sit}</div>
+      <div class="qhint">👇 اضغط على السبب الحقيقي</div>
+    </div>
+    <div class="choices" id="g4opts"></div>
+    <div class="fb hidden" id="g4fb"></div>`;
+  const opts=document.getElementById('g4opts');
+  round.opts.forEach((o,idx)=>{
+    const d=document.createElement('div');
+    d.className='chbtn';d.id='o'+idx;
+    d.innerHTML=`<span class="ci">${o.i}</span><span>${o.l}</span>`;
+    d.onclick=()=>g4Pick(o.c,'o'+idx);
+    opts.appendChild(d);
+  });
+  startTimer(30);
+}
+function g4Pick(isCause,elId){
+  stopTimer();
+  document.querySelectorAll('#g4opts .chbtn').forEach(b=>b.style.pointerEvents='none');
+  const fb=document.getElementById('g4fb');
+  fb.classList.remove('hidden');
+  const el=document.getElementById(elId);
+  if(isCause){
+    el.classList.add('correct');
+    gScore+=25;document.getElementById('gpts').textContent=gScore;
+    fb.className='fb ok';fb.textContent='✅ وجدت السبب! أنت محقق بارع! 🕵️🏆';
+    correctFX();
+    // Tank shoot effect
+    const boom=document.createElement('div');
+    boom.style.cssText='position:fixed;top:40vh;left:50%;font-size:3rem;z-index:9998;animation:boomFly 1s ease-out forwards;';
+    boom.textContent='💥';
+    document.body.appendChild(boom);
+    setTimeout(()=>boom.remove(),1200);
+  } else {
+    el.classList.add('wrong');
+    fb.className='fb no';fb.textContent='❌ ليس هذا السبب! جرّب مجدداً 💪';
+    wrongFX();
+  }
+  setTimeout(()=>{g4.r++;renderG4(document.getElementById('garea'));},1800);
+}
+
+// ============================================================
+//  GAME 5 – ترتيب الفوضى
+// ============================================================
+let g5={fi:0,active:null,caught:0,missed:0,mt:null};
+function initG5(area){g5={fi:0,active:null,caught:0,missed:0,mt:null};renderG5(area);}
+function renderG5(area){
+  area.innerHTML=`
+    <div class="catch-stats">✅ صحيح: <span id="g5c">0</span> &nbsp;|&nbsp; ❌ خطأ: <span id="g5m">0</span></div>
+    <div class="catch-sky" id="g5sky">
+      <div class="catch-grass"></div>
+    </div>
+    <div class="baskets">${GD[5].baskets.map(b=>`<div class="bsk" onclick="g5catch('${b.id}')"><span class="bi">${b.i}</span>${b.l}</div>`).join('')}</div>
+    <div class="fb hidden" id="g5fb"></div>`;
+  dropFile();
+}
+function dropFile(){
+  const files=GD[5].files;
+  if(g5.fi>=files.length){endGame(gScore,files.length*15);return;}
+  const f=files[g5.fi];
+  g5.active=f;
+  const sky=document.getElementById('g5sky');
+  if(!sky)return;
+  // Clear old files
+  sky.querySelectorAll('.ffile').forEach(x=>x.remove());
+  const el=document.createElement('div');
+  el.className='ffile';
+  el.style.left=(10+Math.random()*70)+'%';
+  const dur=3+Math.random()*2;
+  el.style.animationDuration=dur+'s';
+  el.innerHTML=`<div class="ficon">${f.em}</div><div class="flabel">${f.n}</div>`;
+  sky.appendChild(el);
+  const fb=document.getElementById('g5fb');
+  if(fb)fb.className='fb hidden';
+  if(g5.mt)clearTimeout(g5.mt);
+  g5.mt=setTimeout(()=>{
+    if(g5.active){
+      g5.missed++;
+      const m=document.getElementById('g5m');
+      if(m)m.textContent=g5.missed;
+      g5.active=null;g5.fi++;
+      const f2=document.getElementById('g5fb');
+      if(f2){f2.className='fb no';f2.textContent='⏰ فاتتك! حاول الملف التالي';}
+      setTimeout(dropFile,1200);
+    }
+  },dur*1000);
+}
+function g5catch(basketId){
+  if(!g5.active)return;
+  clearTimeout(g5.mt);
+  const f=g5.active;g5.active=null;
+  const sky=document.getElementById('g5sky');
+  if(sky)sky.querySelectorAll('.ffile').forEach(x=>x.remove());
+  const fb=document.getElementById('g5fb');
+  if(!fb)return;
+  if(f.t===basketId){
+    g5.caught++;
+    const c=document.getElementById('g5c');
+    if(c)c.textContent=g5.caught;
+    gScore+=15;document.getElementById('gpts').textContent=gScore;
+    fb.className='fb ok';fb.textContent='✅ مجلد صحيح! 🎉';
+    correctFX();
+  } else {
+    g5.missed++;
+    const m=document.getElementById('g5m');
+    if(m)m.textContent=g5.missed;
+    const corr=GD[5].baskets.find(b=>b.id===f.t);
+    fb.className='fb no';fb.textContent=`❌ كان يجب في: ${corr?corr.i+' '+corr.l:'مجلد آخر'}`;
+    wrongFX();
+  }
+  g5.fi++;
+  setTimeout(dropFile,1200);
+}
+
+// ============================================================
+//  GAME 6 – خزنة الأسرار
+// ============================================================
+let g6={r:0};
+function initG6(area){g6={r:0};renderG6(area);}
+function renderG6(area){
+  const data=GD[6];
+  if(g6.r>=data.rounds.length){endGame(gScore,data.rounds.length*20);return;}
+  const round=data.rounds[g6.r];
+  area.innerHTML=`
+    <div class="qcount">معلومة ${g6.r+1} من ${data.rounds.length}</div>
+    <div class="gcard">
+      <span class="big-q">${round.i}</span>
+      <div class="qtxt">${round.info}</div>
+      <div class="qhint">🔐 ضع هذه المعلومة في المكان الصحيح</div>
+    </div>
+    <div class="choices2">
+      <div class="chbtn2" id="bpub" onclick="g6Pick('pub','${round.ans}','bpub')">
+        <span class="ci2">🌍</span>عامة للجميع
+      </div>
+      <div class="chbtn2" id="bprv" onclick="g6Pick('prv','${round.ans}','bprv')">
+        <span class="ci2">🔒</span>خاصة وسرية
+      </div>
+    </div>
+    <div class="fb hidden" id="g6fb"></div>`;
+  startTimer(20);
+}
+function g6Pick(chosen,ans,elId){
+  stopTimer();
+  document.querySelectorAll('.chbtn2').forEach(b=>b.style.pointerEvents='none');
+  const fb=document.getElementById('g6fb');
+  fb.classList.remove('hidden');
+  const el=document.getElementById(elId);
+  if(chosen===ans){
+    el.classList.add('correct');
+    gScore+=20;document.getElementById('gpts').textContent=gScore;
+    fb.className='fb ok';fb.textContent='✅ قرار ذكي وآمن! 🔐🌟';
+    correctFX();
+  } else {
+    el.classList.add('wrong');
+    fb.className='fb no';fb.textContent='❌ احذر! هذه المعلومة في المكان الخطأ! 🚨';
+    wrongFX();
+  }
+  setTimeout(()=>{g6.r++;renderG6(document.getElementById('garea'));},1800);
+}
+
+// ============================================================
+//  GAME END
+// ============================================================
+function endGame(score,max){
+  stopTimer();
+  done=[...new Set([...done,curLesson])];
+  totalPts+=score;
+  const pct=max>0?Math.round((score/max)*100):0;
+  const stars=pct>=80?'⭐⭐⭐':pct>=50?'⭐⭐':'⭐';
+  document.getElementById('popStars').textContent=stars;
+  if(pct>=80){
+    document.getElementById('popTitle').textContent='رائع يا بطل! 🏆';
+    document.getElementById('popMsg').textContent=`حصلت على ${score} نقطة! ممتاز جداً!`;
+    bigConfetti();
+  } else if(pct>=50){
+    document.getElementById('popTitle').textContent='أحسنت! 👍';
+    document.getElementById('popMsg').textContent=`نقاطك: ${score} من ${max} – يمكنك أفضل!`;
+  } else {
+    document.getElementById('popTitle').textContent='حاول مجدداً! 💪';
+    document.getElementById('popMsg').textContent=`نقاطك: ${score} من ${max} – راجع الدرس وكرر!`;
+  }
+  const isLast=done.length===LESSONS.length;
+  document.querySelector('.pop-btn').textContent=isLast?'🏆 الشهادة':'➡️ الدرس التالي';
+  document.getElementById('popup').classList.remove('hidden');
+}
+function afterGame(){
+  document.getElementById('popup').classList.add('hidden');
+  if(done.length===LESSONS.length){showCert();}
+  else{goMap();}
+}
+function showCert(){
+  const pct=Math.round((totalPts/(LESSONS.length*80))*100);
+  document.getElementById('certName').textContent=pname;
+  document.getElementById('certScore').textContent=`حصل/ت على ${pct}% (${totalPts} نقطة)`;
+  document.getElementById('certStars').textContent=pct>=80?'⭐⭐⭐⭐⭐':pct>=60?'⭐⭐⭐⭐':'⭐⭐⭐';
+  showScr('certificate');
+  bigConfetti();
+  setTimeout(bigConfetti,2000);
+}
+function replayAll(){
+  totalPts=0;done=[];curLesson=0;
+  renderMap();showScr('map');
+}
+</script>
+<style>
+@media print{
+  body *{visibility:hidden;}
+  #certCard,#certCard *{visibility:visible;}
+  #certCard{position:fixed;top:5%;left:5%;width:90vw;border:5px solid gold;}
+  .print-btn,.replay-btn{display:none;}
+}
+</style>
+</body>
+</html>
